@@ -62,9 +62,9 @@ class AuthApiController extends Controller
     {
         $formData = $request->all();
         $validator = \Validator::make($formData,[
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required|confirmed',
+            'name' => 'required|min:3|max:30',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed|min:8',
         ],[
             'name.required' => 'Please give Your Name',
             'email.required' => 'Please give Email Address',

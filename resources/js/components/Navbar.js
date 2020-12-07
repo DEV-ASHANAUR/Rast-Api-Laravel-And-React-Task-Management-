@@ -31,6 +31,9 @@ const Navbar = () => {
                                 <li className="nav-item">
                                     <NavLink exact className="nav-link" activeClassName="menu_active" aria-current="page" to={`${publicUrl}/contact`}>Contact</NavLink>
                                 </li>
+                                <li className="nav-item">
+                                    <NavLink exact className="nav-link" activeClassName="menu_active" aria-current="page" to={`${publicUrl}/signup`}>Sign Up</NavLink>
+                                </li>
                             </ul>
                             </div>
                         </div>

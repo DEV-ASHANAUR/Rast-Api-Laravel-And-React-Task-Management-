@@ -70,3 +70,14 @@ export const projectDelete = async(id)=>{
     //console.log(res.data);
     return res.data;
 }
+/**
+ * storeTask() store user_reg data
+ *
+ * @param {*} data
+ * @return {*} 
+ */
+export const registation = async(data)=>{
+    console.log("data",data);
+    const res = await axios.post(`http://localhost/lara7/api/auth/reg`,data);
+    return res.data;
+}

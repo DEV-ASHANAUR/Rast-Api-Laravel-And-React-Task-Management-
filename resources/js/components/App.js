@@ -14,6 +14,7 @@ import {
   import {publicUrl} from './Service';
   import ProjectCreate from './ProjectCreate';
   import ProjectView from './ProjectView';
+  import SignUp from './SignUp';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                     <Route exact path={`${publicUrl}/project/view/:id`} component={()=> <ProjectView />} />
                     <Route exact path={`${publicUrl}/project/create`} component={()=> <ProjectCreate />} />
                     <Route exact path={`${publicUrl}/contact`} component={()=> <Contact /> } />
+                    <Route exact path={`${publicUrl}/signup`} component={()=> <SignUp />} />
                 </Switch>
             </Router>
         </>
