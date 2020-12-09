@@ -71,7 +71,7 @@ export const projectDelete = async(id)=>{
     return res.data;
 }
 /**
- * storeTask() store user_reg data
+ * registation() store user_reg data
  *
  * @param {*} data
  * @return {*} 
@@ -79,5 +79,16 @@ export const projectDelete = async(id)=>{
 export const registation = async(data)=>{
     console.log("data",data);
     const res = await axios.post(`http://localhost/lara7/api/auth/reg`,data);
+    return res.data;
+}
+/**
+ * Login() check user data
+ *
+ * @param {*} data
+ * @return {*} 
+ */
+export const Login = async(data)=>{
+    console.log("data",data);
+    const res = await axios.post(`http://localhost/lara7/api/auth/login`,data);
     return res.data;
 }

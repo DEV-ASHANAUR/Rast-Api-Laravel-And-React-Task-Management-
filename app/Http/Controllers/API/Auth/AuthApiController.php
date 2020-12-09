@@ -27,7 +27,7 @@ class AuthApiController extends Controller
     {
         $formData = $request->all();
         $validator = \Validator::make($formData,[
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ],[
             'email.required' => 'Please give Email Address',
@@ -36,6 +36,7 @@ class AuthApiController extends Controller
         if($validator->fails()){
             return response()->json([
                 'success' => false,
+                'message' => 'Error !',
                 'errors' => $validator->getMessageBag(),
             ]);
         }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {publicUrl,registation} from './Service';
+import {publicUrl,registation} from '../Service';
 
 const SignUp = () => {
     const history = useHistory();
@@ -78,11 +78,11 @@ const SignUp = () => {
                                     </div>
                                     <div className="form-row">
                                         <div className="col-md-6">
-                                            <input type="text" name="password" value={data.password} onChange={inputEvent} className="form-control mb-2" placeholder="Enter password .." />
+                                            <input type="password" name="password" value={data.password} onChange={inputEvent} className="form-control mb-2" placeholder="Enter password .." />
                                             {error.error && (<p className="text-danger">{error.error.password}</p>)}
                                         </div>
                                         <div className="col-md-6">
-                                            <input type="text" name="password_confirmation" value={data.password_confirmation} onChange={inputEvent} className="form-control mb-2" placeholder="Enter Confirm Password ..." />
+                                            <input type="password" name="password_confirmation" value={data.password_confirmation} onChange={inputEvent} className="form-control mb-2" placeholder="Enter Confirm Password ..." />
                                             {error.error && (<p className="text-danger">{error.error.password_confirmation}</p>)}
                                         </div>
                                     </div>
@@ -98,6 +98,7 @@ const SignUp = () => {
                                                 <button className="btn btn-primary">Sign Up</button>
                                             )
                                         }
+                                        <Link to={`${publicUrl}/signin`}> or login here</Link>
                                     </div>
                                 </form>
                             </div>
