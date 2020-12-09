@@ -5,6 +5,9 @@ import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 
 const SignIn = () => {
+    // if(props.auth === true){
+    //     history.push(`${publicUrl}`);
+    // }
     const history = useHistory();
     const[error,setError] = useState([]);
     const[errormsg,setErrormsg] = useState('');
@@ -30,7 +33,7 @@ const SignIn = () => {
             password:data.password
         };
        const response = await Login(postBody);
-       console.log(response);
+       //console.log(response);
        if(response.success){
             setData({
                 email : '',
@@ -40,8 +43,10 @@ const SignIn = () => {
                 error:"",
             });
             localStorage.setItem("logindata",JSON.stringify(response));
-           alert("User Login Successfully");
-           history.replace(`${publicUrl}/project`);
+        //    alert("User Login Successfully");
+        //    history.replace(`${publicUrl}/project`);
+            window.location.href =  publicUrl;
+
        }else{
            //alert("Error"+ ' ' +response.message);
            setData({

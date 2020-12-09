@@ -86286,6 +86286,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProjectView__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ProjectView */ "./resources/js/components/ProjectView.js");
 /* harmony import */ var _Auth_SignUp__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Auth/SignUp */ "./resources/js/components/Auth/SignUp.js");
 /* harmony import */ var _Auth_SignIn__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Auth/SignIn */ "./resources/js/components/Auth/SignIn.js");
+/* harmony import */ var _Authenticated__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Authenticated */ "./resources/js/components/Authenticated.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -86301,7 +86315,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Navbar__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
+      _useState2 = _slicedToArray(_useState, 2),
+      user = _useState2[0],
+      setUser = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      isLoggedIn = _useState4[0],
+      SetIsLoggedIn = _useState4[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (Object(_Service__WEBPACK_IMPORTED_MODULE_8__["checkAuthenticated"])()) {
+      console.log("checkAuthenticated user data", Object(_Service__WEBPACK_IMPORTED_MODULE_8__["checkAuthenticated"])());
+      setUser({
+        user: Object(_Service__WEBPACK_IMPORTED_MODULE_8__["checkAuthenticated"])()
+      });
+      SetIsLoggedIn(true);
+    }
+  }, []); //console.log(isLoggedIn);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Navbar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    user: user,
+    auth: isLoggedIn
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "".concat(_Service__WEBPACK_IMPORTED_MODULE_8__["publicUrl"]),
     component: function component() {
@@ -86313,12 +86350,14 @@ function App() {
     component: function component() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_About__WEBPACK_IMPORTED_MODULE_5__["default"], null);
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Authenticated__WEBPACK_IMPORTED_MODULE_13__["default"], {
     exact: true,
     path: "".concat(_Service__WEBPACK_IMPORTED_MODULE_8__["publicUrl"], "/project"),
     component: function component() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Project__WEBPACK_IMPORTED_MODULE_7__["default"], null);
-    }
+    },
+    authed: isLoggedIn // or whatever method you use for checking auth
+
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "".concat(_Service__WEBPACK_IMPORTED_MODULE_8__["publicUrl"], "/project/view/:id"),
@@ -86408,6 +86447,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var SignIn = function SignIn() {
+  // if(props.auth === true){
+  //     history.push(`${publicUrl}`);
+  // }
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useHistory"])();
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])([]),
@@ -86460,8 +86502,8 @@ var SignIn = function SignIn() {
 
             case 5:
               response = _context.sent;
-              console.log(response);
 
+              //console.log(response);
               if (response.success) {
                 setData({
                   email: '',
@@ -86470,9 +86512,10 @@ var SignIn = function SignIn() {
                 setError({
                   error: ""
                 });
-                localStorage.setItem("logindata", JSON.stringify(response));
-                alert("User Login Successfully");
-                history.replace("".concat(_Service__WEBPACK_IMPORTED_MODULE_3__["publicUrl"], "/project"));
+                localStorage.setItem("logindata", JSON.stringify(response)); //    alert("User Login Successfully");
+                //    history.replace(`${publicUrl}/project`);
+
+                window.location.href = _Service__WEBPACK_IMPORTED_MODULE_3__["publicUrl"];
               } else {
                 //alert("Error"+ ' ' +response.message);
                 setData({
@@ -86488,7 +86531,7 @@ var SignIn = function SignIn() {
 
               setLoader(false);
 
-            case 9:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -86653,8 +86696,8 @@ var SignUp = function SignUp() {
 
             case 5:
               response = _context.sent;
-              console.log(response);
 
+              //console.log(response);
               if (response.success) {
                 setData({
                   name: '',
@@ -86677,7 +86720,7 @@ var SignUp = function SignUp() {
 
               setLoader(false);
 
-            case 9:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -86770,6 +86813,54 @@ var SignUp = function SignUp() {
 
 /***/ }),
 
+/***/ "./resources/js/components/Authenticated.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/Authenticated.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Service */ "./resources/js/components/Service.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+
+
+function Authenticated(_ref) {
+  var Component = _ref.component,
+      authed = _ref.authed,
+      rest = _objectWithoutProperties(_ref, ["component", "authed"]);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], _extends({}, rest, {
+    render: function render(props) {
+      return authed === true ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, _extends({}, props, {
+        exact: true
+      })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
+        to: {
+          pathname: "".concat(_Service__WEBPACK_IMPORTED_MODULE_1__["publicUrl"], "/signin"),
+          state: {
+            from: props.location
+          }
+        }
+      });
+    }
+  }));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Authenticated);
+
+/***/ }),
+
 /***/ "./resources/js/components/Contact.js":
 /*!********************************************!*\
   !*** ./resources/js/components/Contact.js ***!
@@ -86849,7 +86940,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Navbar = function Navbar() {
+var Navbar = function Navbar(props) {
+  var remlogin = function remlogin() {
+    localStorage.removeItem("logindata");
+    window.location.href = _Service__WEBPACK_IMPORTED_MODULE_2__["publicUrl"] + '/signin'; //alert('ok');
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container-fluid nav_bg bg-dark"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -86910,7 +87006,24 @@ var Navbar = function Navbar() {
     activeClassName: "menu_active",
     "aria-current": "page",
     to: "".concat(_Service__WEBPACK_IMPORTED_MODULE_2__["publicUrl"], "/contact")
-  }, "Contact"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  }, "Contact"))), props.auth === true && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "navbar-nav ml-auto mb-2 mb-lg-0"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+    exact: true,
+    className: "nav-link",
+    "aria-current": "page",
+    to: "".concat(_Service__WEBPACK_IMPORTED_MODULE_2__["publicUrl"], "/signin")
+  }, "Welcome, ", props.user.user.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+    exact: true,
+    className: "nav-link",
+    "aria-current": "page",
+    onClick: remlogin,
+    to: "".concat(_Service__WEBPACK_IMPORTED_MODULE_2__["publicUrl"], "/signup")
+  }, "Logout"))), props.auth === false && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "navbar-nav ml-auto mb-2 mb-lg-0"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "nav-item"
@@ -87583,7 +87696,7 @@ var ProjectList = function ProjectList(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
     className: "card-title text-capitalize"
   }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, props.si + 1), " . Project Name \u27A1\uFE0F", props.val.name, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
-    "class": "badge badge-warning"
+    className: "badge badge-warning"
   }, props.val.tasks_count), " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "card-body"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", null, "Project Description \u2B07\uFE0F "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
@@ -87853,12 +87966,13 @@ var ProjectView = function ProjectView() {
 /*!********************************************!*\
   !*** ./resources/js/components/Service.js ***!
   \********************************************/
-/*! exports provided: publicUrl, storeData, editProject, storeTask, updatetask, deleteTask, projectDelete, registation, Login */
+/*! exports provided: publicUrl, checkAuthenticated, storeData, editProject, storeTask, updatetask, deleteTask, projectDelete, registation, Login */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "publicUrl", function() { return publicUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkAuthenticated", function() { return checkAuthenticated; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "storeData", function() { return storeData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editProject", function() { return editProject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "storeTask", function() { return storeTask; });
@@ -87879,6 +87993,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var publicUrl = "/lara7";
 
+var checkAuthenticated = function checkAuthenticated() {
+  var getlogindata = localStorage.getItem('logindata');
+  console.log(getlogindata);
+
+  if (getlogindata != null) {
+    var data = JSON.parse(getlogindata);
+
+    if (data.success && data.access_token !== null) {
+      return data.user;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  } //console.log('getlogindata',getlogindata);
+
+};
 /**
  *
  * storeData() insert project data

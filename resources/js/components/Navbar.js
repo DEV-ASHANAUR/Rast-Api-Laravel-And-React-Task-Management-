@@ -2,7 +2,12 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {publicUrl} from './Service';
 
-const Navbar = () => {
+const Navbar = (props) => {
+    const remlogin = () =>{
+        localStorage.removeItem("logindata");
+        window.location.href =  publicUrl+'/signin';
+        //alert('ok');
+    }
     return(
         <>
         <div className="container-fluid nav_bg bg-dark">
@@ -33,14 +38,30 @@ const Navbar = () => {
                                 </li>
                                 
                             </ul>
-                            <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
-                                <li className="nav-item">
-                                    <NavLink exact className="nav-link" activeClassName="menu_active" aria-current="page" to={`${publicUrl}/signin`}>Sign In</NavLink>
-                                </li>
-                                <li className="nav-item">
-                                    <NavLink exact className="nav-link" activeClassName="menu_active" aria-current="page" to={`${publicUrl}/signup`}>Sign Up</NavLink>
-                                </li>
-                            </ul>
+                            {
+                                props.auth === true && (
+                                    <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
+                                        <li className="nav-item">
+                                            <NavLink exact className="nav-link" aria-current="page" to={`${publicUrl}/signin`}>Welcome, {props.user.user.name}</NavLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <NavLink exact className="nav-link" aria-current="page" onClick={remlogin} to={`${publicUrl}/signup`}>Logout</NavLink>
+                                        </li>
+                                    </ul>
+                                )
+                            }
+                            {
+                                props.auth === false && (
+                                    <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
+                                        <li className="nav-item">
+                                            <NavLink exact className="nav-link" activeClassName="menu_active" aria-current="page" to={`${publicUrl}/signin`}>Sign In</NavLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <NavLink exact className="nav-link" activeClassName="menu_active" aria-current="page" to={`${publicUrl}/signup`}>Sign Up</NavLink>
+                                        </li>
+                                    </ul>
+                                )
+                            }
                             </div>
                         </div>
                     </nav>

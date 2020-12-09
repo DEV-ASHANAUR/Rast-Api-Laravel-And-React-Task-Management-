@@ -31,7 +31,7 @@ const SignUp = () => {
             password_confirmation:data.password_confirmation
         };
        const response = await registation(postBody);
-       console.log(response);
+       //console.log(response);
        if(response.success){
             setData({
                 name : '',

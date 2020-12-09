@@ -1,5 +1,22 @@
 export const publicUrl = "/lara7";
 import axios from "axios";
+
+export const checkAuthenticated = () =>{
+    const getlogindata = localStorage.getItem('logindata');
+    console.log(getlogindata);
+    if(getlogindata != null){
+        const data = JSON.parse(getlogindata);
+        if(data.success && data.access_token !== null){
+            return data.user;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+    
+    //console.log('getlogindata',getlogindata);
+}
 /**
  *
  * storeData() insert project data

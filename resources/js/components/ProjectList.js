@@ -22,7 +22,7 @@ const ProjectList = (props) =>{
                 <div className="card my-2">
                     <div className="card-header">
                         {/* <h3>{props.si+1}</h3> */}
-                        <h5 className="card-title text-capitalize"> <span>{props.si+1}</span> . Project Name ➡️{props.val.name} <span class="badge badge-warning">{props.val.tasks_count}</span> </h5>
+                        <h5 className="card-title text-capitalize"> <span>{props.si+1}</span> . Project Name ➡️{props.val.name} <span className="badge badge-warning">{props.val.tasks_count}</span> </h5>
                     </div>
                     <div className="card-body">
                         <h5>Project Description ⬇️ </h5>
